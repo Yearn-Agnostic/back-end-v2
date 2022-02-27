@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  api:
+    image: 127.0.0.1:5000/yearnagnostic-io-api
+    hostname: yearnagnostic.io
+    ports:
+      - mode: host
+        target: 3030
+        published: 3021
+    environment:
+      - NODE_ENV=development
+  api-db:
+    image: 127.0.0.1:5000/yearnagnostic-io-db
+    volumes:
+      - db:/var/lib/postgresql/data
+# disable adminer for security reasons
+#  adminer:
+#    image: adminer
+#    restart: always
+#    ports:
+#      - mode: host
+#        target: 8080
+#        published: 3024
+volumes:
+  db:
+    name: yearnagnostic-io-db

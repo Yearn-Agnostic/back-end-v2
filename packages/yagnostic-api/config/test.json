@@ -1,0 +1,15 @@
+{
+  "postgres": {
+    "client": "pg",
+    "connection": {
+      "user": "yagnostic",
+      "database": "yagnostic",
+      "password": "yagnostic",
+      "host": "localhost",
+      "port": 5450
+    },
+    "migrations": {
+      "directory": "./database/migrations"
+    }
+  }
+}

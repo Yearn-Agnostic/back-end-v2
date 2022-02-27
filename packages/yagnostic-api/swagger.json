@@ -1,0 +1,110 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "yagnsotic-api",
+    "version": "1.0",
+    "description": "Yagnostic api for storing proposals"
+  },
+  "paths": {
+    "/proposal/create": {
+      "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/createProposalArgs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "validation error"
+          }
+        }
+      }
+    },
+    "/proposal/get": {
+      "post": {
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/getProposalArgs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/getProposalResponse"
+            }
+          },
+          "400": {
+            "description": "validation error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "getProposalArgs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "example": [1, 2, 3, 4]
+        }
+      }
+    },
+    "createProposalArgs": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "description": {
+          "type": "string",
+          "example": "bla bla bla"
+        }
+      }
+    },
+    "getProposalResponse": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "description": {
+            "type": "string",
+            "example": "some text"
+          }
+        }
+      },
+      "example": [
+        {
+          "id": 1,
+          "description": "bla bla bla"
+        },
+        {
+          "id": 2,
+          "description": "bla bla bla"
+        }
+      ]
+    }
+  }
+}

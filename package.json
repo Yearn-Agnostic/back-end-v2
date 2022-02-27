@@ -1,0 +1,74 @@
+{
+  "name": "back-end",
+  "private": true,
+  "version": "1.0.0",
+  "description": "yagnostic basic back-end",
+  "scripts": {
+    "clean": "lerna run clean && rimraf node_modules python_modules",
+    "setup": "yarn --production=false && lerna exec --concurrency 1 --stream -- yarn --production=false && lerna run setup",
+    "lint": "nopenv pre-commit run -a",
+    "build": "lerna run build --stream --parallel",
+    "start-dev": "lerna run start-dev --stream",
+    "test": "lerna run test --stream",
+    "docker-dev": "cd packages/ && docker-compose down && docker-compose up -d --build",
+    "docker-dev-down": "cd packages/ && docker-compose down --remove-orphans",
+    "docker-dev-logs": "cd packages/ && docker-compose logs -f",
+    "docker-dev-clean-testdb": "cd packages/ && docker-compose down && docker volume rm yagnostic-api-dev-db",
+    "docker-dev-clean-api-testdb": "cd packages/ && docker-compose down && docker volume rm yagnostic-api-dev-db",
+    "docker-prod": "docker-compose down && lerna run build && docker-compose up -d --build && docker-compose logs -f",
+    "docker-preprod-build": "COMPOSE_PROJECT_NAME=yearnagnostic-io COMPOSE_FILE=docker-compose.yml:docker-compose.yearnagnostic.io.yml docker-compose build",
+    "docker-test-build": "COMPOSE_PROJECT_NAME=yagnostic-blaize COMPOSE_FILE=docker-compose.yml:docker-compose.yagnostic.blaize.tech.yml docker-compose build",
+    "docker-test-deploy": "COMPOSE_PROJECT_NAME=yagnostic-blaize COMPOSE_FILE=docker-compose.yml:docker-compose.yagnostic.blaize.tech.yml docker-compose config | docker stack deploy -c - yagnostic-blaize",
+    "docker-test-logs": "docker service logs yagnostic-blaize_api -f",
+    "docker-test-ls": "docker stack ls && docker service ls",
+    "docker-test-rm": "docker stack rm yagnostic-test",
+    "docker-ps": "docker ps | grep yagnostic && docker volume ls | grep yagnostic",
+    "docker-prune": "docker system prune -f && docker volume prune -f",
+    "clean-pre-commit": "nopenv pre-commit clean",
+    "install": "npip install",
+    "nopy": "nopy",
+    "npip": "npip",
+    "docker-images": "docker image ls | grep yagnostics"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yearn-Agnostic/back-end"
+  },
+  "author": "Yagnostic",
+  "license": "ISC",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*": "nopenv pre-commit run --files"
+  },
+  "devDependencies": {
+    "babel-eslint": "10.1.0",
+    "eslint": "^7.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.20.0",
+    "eslint-plugin-json": "^1.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^4.2.5",
+    "lerna": "^3.22.0",
+    "lint-staged": "^10.2.9",
+    "nodemon": "^1.19.2",
+    "nopy": "^0.2.7",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2"
+  },
+  "python": {
+    "execPath": [
+      "python3",
+      "python"
+    ],
+    "dependencies": {
+      "pre-commit": ">=2.5"
+    }
+  },
+  "homepage": "https://github.com/Yearn-Agnostic/back-end#readme"
+}

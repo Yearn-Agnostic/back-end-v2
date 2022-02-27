@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  api:
+    image: yagnostic-blaize-tech-api
+    hostname: yagnostic.blaize.tech
+    ports:
+      - mode: host
+        target: 3030
+        published: 3021
+    environment:
+      - NODE_ENV=development
+  api-db:
+    image: yagnostic-blaize-tech-db
+    volumes:
+      - db:/var/lib/postgresql/data
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - mode: host
+        target: 8080
+        published: 3024
+volumes:
+  # we use predefined names due to historical reasons
+  db:
+    name: yagnostic-blaize-db
